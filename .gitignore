@@ -1,2 +1,3 @@
 node_modules/
 server/dao/storage/state-list/*
+!server/dao/storage/state-list/.gitkeep
