@@ -30,17 +30,33 @@ const create = (stateDtoIn) => {
 const list = () => {
     const files = fs.readdirSync(stateStorageFolderPath);
 
-    const stateList = files.map((filename) => {
-        const filePath = path.join(stateStorageFolderPath, filename);
+    const stateList = files
+        .filter((filename) => filename.endsWith('.json'))
+        .map((filename) => {
+            const filePath = path.join(stateStorageFolderPath, filename);
+            const fileData = fs.readFileSync(filePath, 'utf-8');
+
+            return JSON.parse(fileData);
+        });
+
+    return stateList;
+}
+
+const get = (id) => {
+    try {
+        const filePath = path.join(stateStorageFolderPath, `${id}.json`);
         const fileData = fs.readFileSync(filePath, 'utf-8');
 
         return JSON.parse(fileData);
-    });
-
-    return stateList;
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            return null;
+        }
+    }
 }
 
 export default {
     create,
     list,
+    get,
 };
