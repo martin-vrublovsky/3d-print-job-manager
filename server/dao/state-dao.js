@@ -55,8 +55,41 @@ const get = (id) => {
     }
 }
 
+const update = (stateDtoIn) => {
+    const existingState = get(stateDtoIn.id);
+
+    if (!existingState) {
+        return null;
+    }
+
+    if (stateDtoIn.name && stateDtoIn.name !== existingState.name) {
+        const stateList = list();
+
+        if (stateList.some((state) => state.name === stateDtoIn.name)) {
+            const error = new Error('State with the given name already exists');
+            error.code = 'stateNameAlreadyExists';
+            error.status = 409;
+            throw error;
+        }
+    }
+
+    const newState = { ...existingState, ...stateDtoIn };
+
+    if (JSON.stringify(newState) === JSON.stringify(existingState)) {
+        return existingState;
+    }
+
+    const filePath = path.join(stateStorageFolderPath, `${stateDtoIn.id}.json`);
+    const fileData = JSON.stringify(newState);
+
+    fs.writeFileSync(filePath, fileData, 'utf-8');
+
+    return newState;
+}
+
 export default {
     create,
     list,
     get,
+    update,
 };
