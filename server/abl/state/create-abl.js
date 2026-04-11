@@ -1,12 +1,17 @@
 import Ajv from 'ajv';
 import stateDao from '../../dao/state-dao.js';
 
-const ajv = new Ajv();
+const ajv = new Ajv({ useDefaults: true });
 
 const stateSchema = {
     type: 'object',
     properties: {
         name: { type: 'string', minLength: 2, maxLength: 30 },
+        colorCode: {
+            type: 'string',
+            pattern: '^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$',
+            default: '#F4F4F4',
+        },
     },
     required: ['name'],
     additionalProperties: false,
