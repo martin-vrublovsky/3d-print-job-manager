@@ -1,7 +1,7 @@
 import Ajv from 'ajv';
 import stateDao from '../../dao/state-dao.js';
 
-const ajv = new Ajv({ useDefaults: true });
+const ajv = new Ajv();
 
 const stateSchema = {
     type: 'object',
