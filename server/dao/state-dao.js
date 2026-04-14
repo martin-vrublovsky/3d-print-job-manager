@@ -87,9 +87,21 @@ const update = (stateDtoIn) => {
     return newState;
 }
 
+const getMap = () => {
+    const stateMap = {};
+
+    const stateList = list();
+    stateList.forEach((state) => {
+        stateMap[state.id] = state;
+    });
+
+    return stateMap;
+}
+
 export default {
     create,
     list,
     get,
     update,
+    getMap,
 };

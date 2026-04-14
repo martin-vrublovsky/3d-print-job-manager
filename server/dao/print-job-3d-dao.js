@@ -18,6 +18,22 @@ const create = (printJob3DDtoIn) => {
     return printJob3DDtoIn;
 }
 
+const list = () => {
+    const files = fs.readdirSync(printJob3DStorageFolderPath);
+
+    const printJob3DList = files
+        .filter((filename) => filename.endsWith('.json'))
+        .map((filename) => {
+            const filePath = path.join(printJob3DStorageFolderPath, filename);
+            const fileData = fs.readFileSync(filePath, 'utf-8');
+
+            return JSON.parse(fileData);
+        });
+
+    return printJob3DList;
+}
+
 export default {
     create,
+    list,
 };
