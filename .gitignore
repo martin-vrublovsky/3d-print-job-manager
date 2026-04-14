@@ -1,3 +1,7 @@
 node_modules/
+
 server/dao/storage/state-list/*
 !server/dao/storage/state-list/.gitkeep
+
+server/dao/storage/print-job-3d-list/*
+!server/dao/storage/print-job-3d-list/.gitkeep
