@@ -42,7 +42,7 @@ const createAbl = async (req, res) => {
             throw error;
         }
 
-        const existingState = stateDao.get(printJob3DDtoIn.stateId);
+        const existingState = await stateDao.get(printJob3DDtoIn.stateId);
 
         if (!existingState) {
             const error = new Error(`State with id ${printJob3DDtoIn.stateId} does not exist`);
@@ -51,7 +51,7 @@ const createAbl = async (req, res) => {
             throw error;
         }
 
-        const printJob3D = printJob3DDao.create(printJob3DDtoIn);
+        const printJob3D = await printJob3DDao.create(printJob3DDtoIn);
         printJob3D.state = existingState;
 
         res.json(printJob3D);
