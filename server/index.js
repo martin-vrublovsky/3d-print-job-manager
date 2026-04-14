@@ -1,4 +1,5 @@
 import express from 'express';
+import printJob3DController from './controllers/print-job-3d-controller.js';
 import stateController from './controllers/state-controller.js';
 
 const app = express();
@@ -10,6 +11,7 @@ app.get('/', (req, res) => {
     res.send('Test');
 });
 
+app.use('/print-job-3d', printJob3DController);
 app.use('/state', stateController);
 
 app.listen(PORT, () => {
