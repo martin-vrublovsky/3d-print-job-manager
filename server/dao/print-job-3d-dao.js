@@ -8,6 +8,18 @@ const __dirname = path.dirname(__filename);
 const printJob3DStorageFolderPath = path.join(__dirname, 'storage', 'print-job-3d-list');
 
 const create = (printJob3DDtoIn) => {
+    const printJob3DList = list();
+
+    if (printJob3DList.some((printJob3D) =>
+        printJob3D.name === printJob3DDtoIn.name &&
+        printJob3D.customerName === printJob3DDtoIn.customerName &&
+        new Date(printJob3D.deliveryDue).setHours(0, 0, 0, 0) === new Date(printJob3DDtoIn.deliveryDue).setHours(0, 0, 0, 0))) {
+            const error = new Error('A similar 3D print job with the same name, customer name and delivery due date already exists');
+            error.code = 'similar3DPrintJobAlreadyExists';
+            error.status = 409;
+            throw error;
+    }
+
     printJob3DDtoIn.id = crypto.randomBytes(16).toString('hex');
 
     const filePath = path.join(printJob3DStorageFolderPath, `${printJob3DDtoIn.id}.json`);
