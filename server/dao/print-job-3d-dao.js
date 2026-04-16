@@ -45,7 +45,21 @@ const list = () => {
     return printJob3DList;
 }
 
+const get = (id) => {
+    try {
+        const filePath = path.join(printJob3DStorageFolderPath, `${id}.json`);
+        const fileData = fs.readFileSync(filePath, 'utf-8');
+
+        return JSON.parse(fileData);
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            return null;
+        }
+    }
+}
+
 export default {
     create,
     list,
+    get,
 };
