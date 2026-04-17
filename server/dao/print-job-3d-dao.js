@@ -58,8 +58,49 @@ const get = (id) => {
     }
 }
 
+const update = (printJob3DDtoIn) => {
+    const existingPrintJob3D = get(printJob3DDtoIn.id);
+
+    if (!existingPrintJob3D) {
+        return null;
+    }
+
+    const newName = printJob3DDtoIn.name ?? existingPrintJob3D.name;
+    const newCustomerName = printJob3DDtoIn.customerName ?? existingPrintJob3D.customerName;
+    const newDeliveryDue = printJob3DDtoIn.deliveryDue ?? existingPrintJob3D.deliveryDue;
+
+    const isChanged =
+        newName !== existingPrintJob3D.name ||
+        newCustomerName !== existingPrintJob3D.customerName ||
+        new Date(newDeliveryDue).setHours(0, 0, 0, 0) !== new Date(existingPrintJob3D.deliveryDue).setHours(0, 0, 0, 0);
+
+    if (isChanged) {
+        const printJob3DList = list();
+
+        if (printJob3DList.some((printJob3D) =>
+            printJob3D.name === newName &&
+            printJob3D.customerName === newCustomerName &&
+            new Date(printJob3D.deliveryDue).setHours(0, 0, 0, 0) === new Date(newDeliveryDue).setHours(0, 0, 0, 0))) {
+                const error = new Error('A similar 3D print job with the same name, customer name and delivery due date already exists');
+                error.code = 'similar3DPrintJobAlreadyExists';
+                error.status = 409;
+                throw error;
+        }
+    }
+
+    const newPrintJob3D = { ...existingPrintJob3D, ...printJob3DDtoIn };
+
+    const filePath = path.join(printJob3DStorageFolderPath, `${printJob3DDtoIn.id}.json`);
+    const fileData = JSON.stringify(newPrintJob3D);
+
+    fs.writeFileSync(filePath, fileData, 'utf-8');
+
+    return newPrintJob3D;
+}
+
 export default {
     create,
     list,
     get,
+    update,
 };
