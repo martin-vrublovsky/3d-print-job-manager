@@ -98,9 +98,23 @@ const update = (printJob3DDtoIn) => {
     return newPrintJob3D;
 }
 
+const remove = (id) => {
+    try {
+        const filePath = path.join(printJob3DStorageFolderPath, `${id}.json`);
+        fs.unlinkSync(filePath);
+
+        return {};
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            return null;
+        }
+    }
+}
+
 export default {
     create,
     list,
     get,
     update,
+    remove,
 };
