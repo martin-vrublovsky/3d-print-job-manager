@@ -33,6 +33,7 @@ const deleteAbl = (req, res) => {
             const error = new Error('State has 3D print jobs');
             error.code = 'Cannot delete state because it has related 3D print jobs';
             error.status = 409;
+            error.details = { printJobs3DCount: printJob3DList.length };
             throw error;
         }
 
