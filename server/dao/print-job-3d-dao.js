@@ -111,10 +111,17 @@ const remove = (id) => {
     }
 }
 
+const listByStateId = (id) => {
+    const printJob3DList = list();
+
+    return printJob3DList.filter((printJob3D) => printJob3D.stateId === id);
+}
+
 export default {
     create,
     list,
     get,
     update,
     remove,
+    listByStateId,
 };

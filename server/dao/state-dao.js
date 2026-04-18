@@ -98,10 +98,24 @@ const getMap = () => {
     return stateMap;
 }
 
+const remove = (id) => {
+    try {
+        const filePath = path.join(stateStorageFolderPath, `${id}.json`);
+        fs.unlinkSync(filePath);
+
+        return {};
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            return null;
+        }
+    }
+}
+
 export default {
     create,
     list,
     get,
     update,
     getMap,
+    remove,
 };
