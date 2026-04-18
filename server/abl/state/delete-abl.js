@@ -13,7 +13,7 @@ const printJob3DSchema = {
     additionalProperties: false,
 };
 
-const deleteAbl = (req, res) => {
+const deleteAbl = async (req, res) => {
     try {
         const printJob3DDtoIn = req.body;
 
@@ -27,7 +27,7 @@ const deleteAbl = (req, res) => {
             throw error;
         }
 
-        const printJob3DList = printJob3DDao.listByStateId(printJob3DDtoIn.id);
+        const printJob3DList = await printJob3DDao.listByStateId(printJob3DDtoIn.id);
 
         if (printJob3DList.length > 0) {
             const error = new Error('State has 3D print jobs');
@@ -37,7 +37,7 @@ const deleteAbl = (req, res) => {
             throw error;
         }
 
-        const state = stateDao.remove(printJob3DDtoIn.id);
+        const state = await stateDao.remove(printJob3DDtoIn.id);
 
         if (!state) {
             const error = new Error(`State with id ${printJob3DDtoIn.id} not found`);
