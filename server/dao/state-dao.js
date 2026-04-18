@@ -42,9 +42,9 @@ const list = () => {
     return stateList;
 }
 
-const get = (id) => {
+const get = (stateDtoInId) => {
     try {
-        const filePath = path.join(stateStorageFolderPath, `${id}.json`);
+        const filePath = path.join(stateStorageFolderPath, `${stateDtoInId}.json`);
         const fileData = fs.readFileSync(filePath, 'utf-8');
 
         return JSON.parse(fileData);
@@ -53,6 +53,17 @@ const get = (id) => {
             return null;
         }
     }
+}
+
+const getMap = () => {
+    const stateMap = {};
+
+    const stateList = list();
+    stateList.forEach((state) => {
+        stateMap[state.id] = state;
+    });
+
+    return stateMap;
 }
 
 const update = (stateDtoIn) => {
@@ -87,20 +98,9 @@ const update = (stateDtoIn) => {
     return newState;
 }
 
-const getMap = () => {
-    const stateMap = {};
-
-    const stateList = list();
-    stateList.forEach((state) => {
-        stateMap[state.id] = state;
-    });
-
-    return stateMap;
-}
-
-const remove = (id) => {
+const remove = (stateDtoInId) => {
     try {
-        const filePath = path.join(stateStorageFolderPath, `${id}.json`);
+        const filePath = path.join(stateStorageFolderPath, `${stateDtoInId}.json`);
         fs.unlinkSync(filePath);
 
         return {};
@@ -115,7 +115,7 @@ export default {
     create,
     list,
     get,
-    update,
     getMap,
+    update,
     remove,
 };

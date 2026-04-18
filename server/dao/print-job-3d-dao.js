@@ -13,7 +13,8 @@ const create = (printJob3DDtoIn) => {
     if (printJob3DList.some((printJob3D) =>
         printJob3D.name === printJob3DDtoIn.name &&
         printJob3D.customerName === printJob3DDtoIn.customerName &&
-        new Date(printJob3D.deliveryDue).setHours(0, 0, 0, 0) === new Date(printJob3DDtoIn.deliveryDue).setHours(0, 0, 0, 0))) {
+        new Date(printJob3D.deliveryDue).setHours(0, 0, 0, 0) ===
+        new Date(printJob3DDtoIn.deliveryDue).setHours(0, 0, 0, 0))) {
             const error = new Error('A similar 3D print job with the same name, customer name and delivery due date already exists');
             error.code = 'similar3DPrintJobAlreadyExists';
             error.status = 409;
@@ -45,9 +46,15 @@ const list = () => {
     return printJob3DList;
 }
 
-const get = (id) => {
+const listByStateId = (printJob3DDtoInId) => {
+    const printJob3DList = list();
+
+    return printJob3DList.filter((printJob3D) => printJob3D.stateId === printJob3DDtoInId);
+}
+
+const get = (printJob3DDtoInId) => {
     try {
-        const filePath = path.join(printJob3DStorageFolderPath, `${id}.json`);
+        const filePath = path.join(printJob3DStorageFolderPath, `${printJob3DDtoInId}.json`);
         const fileData = fs.readFileSync(filePath, 'utf-8');
 
         return JSON.parse(fileData);
@@ -72,7 +79,8 @@ const update = (printJob3DDtoIn) => {
     const isChanged =
         newName !== existingPrintJob3D.name ||
         newCustomerName !== existingPrintJob3D.customerName ||
-        new Date(newDeliveryDue).setHours(0, 0, 0, 0) !== new Date(existingPrintJob3D.deliveryDue).setHours(0, 0, 0, 0);
+        new Date(newDeliveryDue).setHours(0, 0, 0, 0) !==
+        new Date(existingPrintJob3D.deliveryDue).setHours(0, 0, 0, 0);
 
     if (isChanged) {
         const printJob3DList = list();
@@ -80,7 +88,8 @@ const update = (printJob3DDtoIn) => {
         if (printJob3DList.some((printJob3D) =>
             printJob3D.name === newName &&
             printJob3D.customerName === newCustomerName &&
-            new Date(printJob3D.deliveryDue).setHours(0, 0, 0, 0) === new Date(newDeliveryDue).setHours(0, 0, 0, 0))) {
+            new Date(printJob3D.deliveryDue).setHours(0, 0, 0, 0) ===
+            new Date(newDeliveryDue).setHours(0, 0, 0, 0))) {
                 const error = new Error('A similar 3D print job with the same name, customer name and delivery due date already exists');
                 error.code = 'similar3DPrintJobAlreadyExists';
                 error.status = 409;
@@ -98,9 +107,9 @@ const update = (printJob3DDtoIn) => {
     return newPrintJob3D;
 }
 
-const remove = (id) => {
+const remove = (printJob3DDtoInId) => {
     try {
-        const filePath = path.join(printJob3DStorageFolderPath, `${id}.json`);
+        const filePath = path.join(printJob3DStorageFolderPath, `${printJob3DDtoInId}.json`);
         fs.unlinkSync(filePath);
 
         return {};
@@ -111,17 +120,11 @@ const remove = (id) => {
     }
 }
 
-const listByStateId = (id) => {
-    const printJob3DList = list();
-
-    return printJob3DList.filter((printJob3D) => printJob3D.stateId === id);
-}
-
 export default {
     create,
     list,
+    listByStateId,
     get,
     update,
     remove,
-    listByStateId,
 };

@@ -1,31 +1,6 @@
 import printJob3DDao from '../../dao/print-job-3d-dao.js';
 import stateDao from '../../dao/state-dao.js';
 
-const groupAndSortByDeliveryDue = (printJob3DList) => {
-    const groups = {};
-
-    printJob3DList.forEach((printJob3D) => {
-        const key = printJob3D.deliveryDue;
-
-        if (!groups[key]) {
-            groups[key] = [];
-        }
-
-        groups[key].push(printJob3D);
-    });
-
-    const sortedKeys = Object.keys(groups).sort((a, b) => {
-        return new Date(a) - new Date(b);
-    });
-
-    const sortedGroups = {};
-    sortedKeys.forEach((key) => {
-        sortedGroups[key] = groups[key];
-    });
-
-    return sortedGroups;
-}
-
 const listAbl = async (req, res) => {
     try {
         const printJob3DList = await printJob3DDao.list();
@@ -41,6 +16,32 @@ const listAbl = async (req, res) => {
             details: error.details || undefined,
         });
     }
+}
+
+const groupAndSortByDeliveryDue = (printJob3DList) => {
+    const groups = {};
+
+    printJob3DList.forEach((printJob3D) => {
+        const key = printJob3D.deliveryDue;
+
+        if (!groups[key]) {
+            groups[key] = [];
+        }
+
+        groups[key].push(printJob3D);
+    });
+
+    const sortedKeys = Object.keys(groups);
+    sortedKeys.sort((a, b) => {
+        return new Date(a) - new Date(b);
+    });
+
+    const sortedGroups = {};
+    sortedKeys.forEach((key) => {
+        sortedGroups[key] = groups[key];
+    });
+
+    return sortedGroups;
 }
 
 export default listAbl;
