@@ -2,46 +2,47 @@ import printJob3DDao from '../../dao/print-job-3d-dao.js';
 import stateDao from '../../dao/state-dao.js';
 
 const listAbl = async (req, res) => {
-    try {
-        const printJob3DList = await printJob3DDao.list();
-        const stateMap = await stateDao.getMap();
+  try {
+    const printJob3DList = await printJob3DDao.list();
+    const stateMap = await stateDao.getMap();
 
-        const printJob3DGroupedAndSortedList = groupAndSortByDeliveryDue(printJob3DList);
+    const printJob3DGroupedAndSortedList =
+      groupAndSortByDeliveryDue(printJob3DList);
 
-        res.json({ printJob3DGroupedAndSortedList, stateMap });
-    } catch (error) {
-        res.status(error.status || 500).json({
-            code: error.code || 'internalServerError',
-            message: error.message || 'Unexpected error occurred',
-            details: error.details || undefined,
-        });
-    }
-}
+    res.json({ printJob3DGroupedAndSortedList, stateMap });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      code: error.code || 'internalServerError',
+      message: error.message || 'Unexpected error occurred',
+      details: error.details || undefined,
+    });
+  }
+};
 
 const groupAndSortByDeliveryDue = (printJob3DList) => {
-    const groups = {};
+  const groups = {};
 
-    printJob3DList.forEach((printJob3D) => {
-        const key = printJob3D.deliveryDue;
+  printJob3DList.forEach((printJob3D) => {
+    const key = printJob3D.deliveryDue;
 
-        if (!groups[key]) {
-            groups[key] = [];
-        }
+    if (!groups[key]) {
+      groups[key] = [];
+    }
 
-        groups[key].push(printJob3D);
-    });
+    groups[key].push(printJob3D);
+  });
 
-    const sortedKeys = Object.keys(groups);
-    sortedKeys.sort((a, b) => {
-        return new Date(a) - new Date(b);
-    });
+  const sortedKeys = Object.keys(groups);
+  sortedKeys.sort((a, b) => {
+    return new Date(a) - new Date(b);
+  });
 
-    const sortedGroups = {};
-    sortedKeys.forEach((key) => {
-        sortedGroups[key] = groups[key];
-    });
+  const sortedGroups = {};
+  sortedKeys.forEach((key) => {
+    sortedGroups[key] = groups[key];
+  });
 
-    return sortedGroups;
-}
+  return sortedGroups;
+};
 
 export default listAbl;
