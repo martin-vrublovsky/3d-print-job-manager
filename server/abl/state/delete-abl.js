@@ -4,7 +4,7 @@ import stateDao from '../../dao/state-dao.js';
 
 const ajv = new Ajv();
 
-const printJob3DSchema = {
+const stateSchema = {
   type: 'object',
   properties: {
     id: { type: 'string', minLength: 32, maxLength: 32 },
@@ -15,9 +15,9 @@ const printJob3DSchema = {
 
 const deleteAbl = async (req, res) => {
   try {
-    const printJob3DDtoIn = req.body;
+    const stateDtoIn = req.body;
 
-    const dtoInIsValid = ajv.validate(printJob3DSchema, printJob3DDtoIn);
+    const dtoInIsValid = ajv.validate(stateSchema, stateDtoIn);
 
     if (!dtoInIsValid) {
       const error = new Error('dtoIn is not valid');
@@ -27,9 +27,7 @@ const deleteAbl = async (req, res) => {
       throw error;
     }
 
-    const printJob3DList = await printJob3DDao.listByStateId(
-      printJob3DDtoIn.id
-    );
+    const printJob3DList = await printJob3DDao.listByStateId(stateDtoIn.id);
 
     if (printJob3DList.length > 0) {
       const error = new Error('State has 3D print jobs');
@@ -39,10 +37,10 @@ const deleteAbl = async (req, res) => {
       throw error;
     }
 
-    const state = await stateDao.remove(printJob3DDtoIn.id);
+    const state = await stateDao.remove(stateDtoIn.id);
 
     if (!state) {
-      const error = new Error(`State with id ${printJob3DDtoIn.id} not found`);
+      const error = new Error(`State with id ${stateDtoIn.id} not found`);
       error.code = 'stateNotFound';
       error.status = 404;
       throw error;

@@ -59,11 +59,11 @@ const list = () => {
   return printJob3DList;
 };
 
-const listByStateId = (printJob3DDtoInId) => {
+const listByStateId = (stateDtoInId) => {
   const printJob3DList = list();
 
   return printJob3DList.filter(
-    (printJob3D) => printJob3D.stateId === printJob3DDtoInId
+    (printJob3D) => printJob3D.stateId === stateDtoInId
   );
 };
 
