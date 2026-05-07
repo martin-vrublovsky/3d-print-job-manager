@@ -30,8 +30,10 @@ const deleteAbl = async (req, res) => {
     const printJob3DList = await printJob3DDao.listByStateId(stateDtoIn.id);
 
     if (printJob3DList.length > 0) {
-      const error = new Error('State has 3D print jobs');
-      error.code = 'Cannot delete state because it has related 3D print jobs';
+      const error = new Error(
+        'Cannot delete state because it has related 3D print job(s)'
+      );
+      error.code = 'stateHasRelatedPrintJobs3D';
       error.status = 409;
       error.details = { printJobs3DCount: printJob3DList.length };
       throw error;
