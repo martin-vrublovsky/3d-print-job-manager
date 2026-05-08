@@ -33,7 +33,7 @@ const getAbl = async (req, res) => {
       const error = new Error(
         `3D print job with id ${printJob3DDtoIn.id} not found`
       );
-      error.code = '3DPrintJobNotFound';
+      error.code = 'printJob3DNotFound';
       error.status = 404;
       throw error;
     }
