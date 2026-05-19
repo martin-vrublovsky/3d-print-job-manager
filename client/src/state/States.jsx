@@ -1,9 +1,17 @@
-const StatePage = () => {
+import StateProvider from './StateProvider';
+import StateStatusResolver from './StateStatusResolver';
+import Container from 'react-bootstrap/Container';
+
+const States = () => {
   return (
     <>
-      <h1>State page</h1>
+      <StateProvider>
+        <Container>
+          <StateStatusResolver />
+        </Container>
+      </StateProvider>
     </>
   );
 };
 
-export default StatePage;
+export default States;

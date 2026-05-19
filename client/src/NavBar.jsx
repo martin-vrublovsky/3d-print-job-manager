@@ -1,34 +1,44 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <h2 onClick={() => navigate('')} style={{ cursor: 'pointer' }}>
-              3DPrintJobManager
-            </h2>
-          </li>
+      <Navbar bg="primary" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
+          >
+            <h4>3DPrintJobManager</h4>
+          </Navbar.Brand>
 
-          <li>
-            <a onClick={() => navigate('')} style={{ cursor: 'pointer' }}>
-              Dashboard
-            </a>
-          </li>
+          <Nav variant="underline">
+            <Nav.Item>
+              <Nav.Link
+                onClick={() => navigate('/')}
+                active={location.pathname === '/'}
+              >
+                Dashboard
+              </Nav.Link>
+            </Nav.Item>
 
-          <li>
-            <a
-              onClick={() => navigate('/states')}
-              style={{ cursor: 'pointer' }}
-            >
-              States
-            </a>
-          </li>
-        </ul>
-      </nav>
+            <Nav.Item>
+              <Nav.Link
+                onClick={() => navigate('/states')}
+                active={location.pathname === '/states'}
+              >
+                States
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Container>
+      </Navbar>
     </>
   );
 };

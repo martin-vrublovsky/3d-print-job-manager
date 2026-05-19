@@ -1,11 +1,19 @@
 import express from 'express';
+import cors from 'cors';
 import printJob3DController from './controllers/print-job-3d-controller.js';
 import stateController from './controllers/state-controller.js';
 
 const app = express();
 const PORT = 3000;
 
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+  })
+);
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send('Test');
