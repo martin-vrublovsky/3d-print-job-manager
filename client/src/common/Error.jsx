@@ -1,11 +1,14 @@
+import Alert from 'react-bootstrap/Alert';
 import { Icon } from '@mdi/react';
 import { mdiAlertCircle } from '@mdi/js';
 
 const Error = ({ message }) => {
   return (
     <>
-      <Icon path={mdiAlertCircle} size={10} color={'red'} />
-      {message}
+      <Alert variant="danger">
+        <Icon path={mdiAlertCircle} size={1} className="text-danger me-2" />
+        {message}
+      </Alert>
     </>
   );
 };

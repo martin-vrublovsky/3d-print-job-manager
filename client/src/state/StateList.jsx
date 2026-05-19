@@ -1,25 +1,41 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { StateContext } from './StateContext';
 import StateItem from './StateItem';
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import CreateStateModal from './CreateStateModal';
 
 const StateList = () => {
   const { data } = useContext(StateContext);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   return (
     <>
-      <div className="mb-4" style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="mb-3" style={{ display: 'flex', alignItems: 'center' }}>
         <h2 className="me-auto">List of states</h2>
-        <Button className="fw-semibold" variant="success">
+        <Button
+          variant="success"
+          onClick={() => setShowCreateModal(true)}
+          className="fw-semibold"
+        >
           Create
         </Button>
       </div>
 
-      {data.stateList.length > 0 ? (
+      <hr className="my-1 mb-4"></hr>
+
+      {data?.stateList?.length > 0 ? (
         data.stateList.map((state) => <StateItem key={state.id} data={state} />)
       ) : (
-        <span>There are no states</span>
+        <Alert variant="info">
+          No state has been created yet. You must create one first.
+        </Alert>
       )}
+
+      <CreateStateModal
+        showCreateModal={showCreateModal}
+        setShowCreateModal={setShowCreateModal}
+      />
     </>
   );
 };

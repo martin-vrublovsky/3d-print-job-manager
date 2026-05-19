@@ -2,6 +2,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
+import { Icon } from '@mdi/react';
+import { mdiPrinter3d } from '@mdi/js';
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -13,8 +15,13 @@ const NavBar = () => {
         <Container>
           <Navbar.Brand
             onClick={() => navigate('/')}
-            style={{ cursor: 'pointer' }}
+            style={{
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+            }}
           >
+            <Icon path={mdiPrinter3d} size={1.3} className="me-2" />
             <h4>3DPrintJobManager</h4>
           </Navbar.Brand>
 
