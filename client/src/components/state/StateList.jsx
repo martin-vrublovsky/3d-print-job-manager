@@ -4,6 +4,8 @@ import StateItem from './StateItem';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import CreateStateModal from './CreateStateModal';
+import { Icon } from '@mdi/react';
+import { mdiInformation } from '@mdi/js';
 
 const StateList = () => {
   const { data } = useContext(StateContext);
@@ -28,6 +30,7 @@ const StateList = () => {
         data.stateList.map((state) => <StateItem key={state.id} data={state} />)
       ) : (
         <Alert variant="info">
+          <Icon path={mdiInformation} size={1.3} className="text-info me-2" />
           No state has been created yet. You must create one first.
         </Alert>
       )}

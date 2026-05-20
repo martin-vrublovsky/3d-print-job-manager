@@ -6,7 +6,7 @@ const Error = ({ message }) => {
   return (
     <>
       <Alert variant="danger">
-        <Icon path={mdiAlertCircle} size={1} className="text-danger me-2" />
+        <Icon path={mdiAlertCircle} size={1.3} className="text-danger me-2" />
         {message}
       </Alert>
     </>
