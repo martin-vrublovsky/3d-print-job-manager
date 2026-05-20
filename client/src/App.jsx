@@ -1,8 +1,8 @@
 import './App.css';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
-import Dashboard from './print-job-3d/Dashboard';
-import States from './state/States';
+import Dashboard from './components/print-job-3d/Dashboard';
+import States from './components/state/States';
 
 function App() {
   return (

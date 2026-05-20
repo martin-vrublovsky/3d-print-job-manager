@@ -3,7 +3,7 @@ import { StateContext } from './StateContext';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Error from '../common/Error';
+import Error from '../../common/Error';
 
 const UpdateStateModal = ({
   showUpdateModal,
@@ -30,9 +30,13 @@ const UpdateStateModal = ({
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const success = await handleMap.handleUpdate(stateData.id, name, colorCode);
+    const isUpdated = await handleMap.handleUpdate(
+      stateData.id,
+      name,
+      colorCode
+    );
 
-    if (success) {
+    if (isUpdated) {
       handleClose();
     }
   };

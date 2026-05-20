@@ -3,7 +3,7 @@ import { StateContext } from './StateContext';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Error from '../common/Error';
+import Error from '../../common/Error';
 
 const CreateStateModal = ({ showCreateModal, setShowCreateModal }) => {
   const { error, setError, handleMap } = useContext(StateContext);
@@ -28,9 +28,9 @@ const CreateStateModal = ({ showCreateModal, setShowCreateModal }) => {
 
     const payloadColorCode = colorCode.trim() === '' ? undefined : colorCode;
 
-    const success = await handleMap.handleCreate(name, payloadColorCode);
+    const isCreated = await handleMap.handleCreate(name, payloadColorCode);
 
-    if (success) {
+    if (isCreated) {
       setName('');
       setColorCode('');
       handleClose();

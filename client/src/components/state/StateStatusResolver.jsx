@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { StateContext } from './StateContext';
 import StateList from './StateList';
-import Loading from '../common/Loading';
-import Error from '../common/Error';
+import Loading from '../../common/Loading';
+import Error from '../../common/Error';
 
 const StateStatusResolver = () => {
   const { data, status, error } = useContext(StateContext);
