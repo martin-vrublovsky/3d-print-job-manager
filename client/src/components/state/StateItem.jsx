@@ -4,9 +4,12 @@ import Button from 'react-bootstrap/Button';
 import { Icon } from '@mdi/react';
 import { mdiPencil, mdiDelete } from '@mdi/js';
 import UpdateStateModal from './UpdateStateModal';
+import DeleteStateConfirmationModal from './DeleteStateConfirmationModal';
 
 const StateItem = ({ data }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
+    useState(false);
 
   return (
     <>
@@ -30,6 +33,7 @@ const StateItem = ({ data }) => {
 
         <Button
           variant="danger"
+          onClick={() => setShowDeleteConfirmationModal(true)}
           className="pt-1"
           style={{ padding: '0.4rem 0.2rem' }}
         >
@@ -40,6 +44,12 @@ const StateItem = ({ data }) => {
       <UpdateStateModal
         showUpdateModal={showUpdateModal}
         setShowUpdateModal={setShowUpdateModal}
+        stateData={data}
+      />
+
+      <DeleteStateConfirmationModal
+        showDeleteConfirmationModal={showDeleteConfirmationModal}
+        setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
         stateData={data}
       />
     </>

@@ -69,7 +69,7 @@ const StateProvider = ({ children }) => {
   };
 
   const handleUpdate = async (id, name, colorCode) => {
-    setStatus('updating ' + id);
+    setStatus(`updating ${id}`);
     setError(null);
 
     try {
@@ -107,6 +107,41 @@ const StateProvider = ({ children }) => {
     }
   };
 
+  const handleDelete = async (id) => {
+    setStatus(`deleting ${id}`);
+    setError(null);
+
+    try {
+      const res = await fetch('/state/delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        throw new Error(data?.details?.[0]?.message || data?.message);
+      }
+
+      setData((currentData) => ({
+        ...currentData,
+        stateList: currentData.stateList.filter((state) => state.id !== id),
+      }));
+
+      setStatus('success');
+
+      return true;
+    } catch (error) {
+      setError(error.message);
+      setStatus('error');
+
+      return false;
+    }
+  };
+
   return (
     <>
       <StateContext.Provider
@@ -115,7 +150,7 @@ const StateProvider = ({ children }) => {
           status,
           error,
           setError,
-          handleMap: { handleCreate, handleUpdate },
+          handleMap: { handleCreate, handleUpdate, handleDelete },
         }}
       >
         {children}
