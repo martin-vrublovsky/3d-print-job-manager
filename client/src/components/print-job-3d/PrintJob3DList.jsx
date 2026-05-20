@@ -1,0 +1,49 @@
+import { useContext } from 'react';
+import { PrintJob3DContext } from './PrintJob3DContext';
+import PrintJob3DItem from './PrintJob3DItem';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+
+const PrintJob3DList = () => {
+  const { data } = useContext(PrintJob3DContext);
+
+  const groupedAndSortedList = data?.printJob3DGroupedAndSortedList || {};
+
+  return (
+    <>
+      <div className="mb-3" style={{ display: 'flex', alignItems: 'center' }}>
+        <h2 className="me-auto">List of 3D printing jobs</h2>
+
+        <Button variant="success" className="fw-semibold">
+          Create
+        </Button>
+      </div>
+
+      <hr className="my-1 mb-4"></hr>
+
+      {Object.keys(groupedAndSortedList).length > 0 ? (
+        Object.entries(groupedAndSortedList).map(
+          ([deliveryDate, printJobs3D]) => (
+            <span key={deliveryDate}>
+              <h5 className="mb-3">{deliveryDate}</h5>
+
+              {printJobs3D.map((printJob3D) => (
+                <PrintJob3DItem
+                  key={printJob3D.id}
+                  data={printJob3D}
+                  state={data.stateMap[printJob3D.stateId]}
+                />
+              ))}
+            </span>
+          )
+        )
+      ) : (
+        <Alert variant="info">
+          No 3D printing job has been created yet. You must create one first.
+        </Alert>
+      )}
+    </>
+  );
+};
+
+export default PrintJob3DList;

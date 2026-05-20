@@ -1,4 +1,7 @@
 import { useEffect } from 'react';
+import PrintJob3DProvider from './PrintJob3DProvider';
+import PrintJob3DStatusResolver from './PrintJob3DStatusResolver';
+import Container from 'react-bootstrap/Container';
 
 const Dashboard = () => {
   useEffect(() => {
@@ -7,7 +10,11 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1>Dashboard page</h1>
+      <PrintJob3DProvider>
+        <Container>
+          <PrintJob3DStatusResolver />
+        </Container>
+      </PrintJob3DProvider>
     </>
   );
 };
