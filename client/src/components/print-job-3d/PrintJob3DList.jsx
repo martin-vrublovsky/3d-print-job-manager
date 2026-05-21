@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react';
 import { PrintJob3DContext } from './PrintJob3DContext';
+
 import PrintJob3DItem from './PrintJob3DItem';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import CreatePrintJob3DModal from './CreatePrintJob3DModal';
+import CreatePrintJob3DModal from './modals/CreatePrintJob3DModal';
+
 import { Icon } from '@mdi/react';
 import { mdiInformation } from '@mdi/js';
 
@@ -15,7 +17,7 @@ const PrintJob3DList = () => {
 
   return (
     <>
-      <div className="mb-3" style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="d-flex align-items-center mb-3">
         <h2 className="me-auto">List of 3D printing jobs</h2>
 
         <Button

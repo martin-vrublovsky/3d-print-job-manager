@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react';
 import { StateContext } from './StateContext';
+
 import StateItem from './StateItem';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import CreateStateModal from './CreateStateModal';
+import CreateStateModal from './modals/CreateStateModal';
+
 import { Icon } from '@mdi/react';
 import { mdiInformation } from '@mdi/js';
 
@@ -13,8 +15,9 @@ const StateList = () => {
 
   return (
     <>
-      <div className="mb-3" style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="d-flex align-items-center mb-3">
         <h2 className="me-auto">List of states</h2>
+
         <Button
           variant="success"
           onClick={() => setShowCreateModal(true)}

@@ -21,6 +21,7 @@ const StateProvider = ({ children }) => {
 
         const data = await res.json();
         setData(data);
+
         setStatus('success');
       } catch (error) {
         setError(error.message);
@@ -114,9 +115,7 @@ const StateProvider = ({ children }) => {
     try {
       const res = await fetch('/state/delete', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
       });
 

@@ -1,58 +1,54 @@
 import { useContext, useState, useEffect } from 'react';
-import { StateContext } from './StateContext';
+import { StateContext } from '../StateContext';
+
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Error from '../../common/Error';
+import Error from '../../../common/Error';
 
-const UpdateStateModal = ({
-  showUpdateModal,
-  setShowUpdateModal,
-  stateData,
-}) => {
+const CreateStateModal = ({ showCreateModal, setShowCreateModal }) => {
   const { error, setError, handleMap } = useContext(StateContext);
 
   const [name, setName] = useState('');
   const [colorCode, setColorCode] = useState('');
 
   const handleClose = () => {
-    setShowUpdateModal(false);
+    setShowCreateModal(false);
     setError(null);
   };
 
   useEffect(() => {
-    if (showUpdateModal && stateData) {
-      setName(stateData.name || '');
-      setColorCode(stateData.colorCode || '');
+    if (showCreateModal) {
+      setName('');
+      setColorCode('');
     }
-  }, [showUpdateModal, stateData]);
+  }, [showCreateModal]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const isUpdated = await handleMap.handleUpdate(
-      stateData.id,
-      name,
-      colorCode
-    );
+    const colorCodePayload = colorCode.trim() === '' ? undefined : colorCode;
 
-    if (isUpdated) {
+    const isCreated = await handleMap.handleCreate(name, colorCodePayload);
+
+    if (isCreated) {
       handleClose();
     }
   };
 
   return (
-    <Modal show={showUpdateModal} onHide={handleClose} centered>
+    <Modal show={showCreateModal} onHide={handleClose} centered>
       <Form onSubmit={onSubmit}>
         <Modal.Header className="px-4" closeButton>
-          <Modal.Title>Update state</Modal.Title>
+          <Modal.Title>Create state</Modal.Title>
         </Modal.Header>
 
         <Modal.Body className="px-4">
           {error && <Error message={error} />}
 
           <Form.Group className="mb-3">
-            <Form.Label className="fw-semibold">Name</Form.Label>
+            <Form.Label className="fw-semibold">Name *</Form.Label>
+
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -62,6 +58,7 @@ const UpdateStateModal = ({
 
           <Form.Group>
             <Form.Label className="fw-semibold">Color code (hex)</Form.Label>
+
             <Form.Control
               value={colorCode}
               onChange={(e) => setColorCode(e.target.value)}
@@ -74,8 +71,9 @@ const UpdateStateModal = ({
           <Button variant="secondary" onClick={handleClose} className="me-2">
             Cancel
           </Button>
-          <Button type="submit" variant="primary" className="fw-semibold">
-            Update
+
+          <Button type="submit" variant="success" className="fw-semibold">
+            Create
           </Button>
         </Modal.Footer>
       </Form>
@@ -83,4 +81,4 @@ const UpdateStateModal = ({
   );
 };
 
-export default UpdateStateModal;
+export default CreateStateModal;

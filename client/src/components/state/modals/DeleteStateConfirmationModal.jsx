@@ -1,8 +1,9 @@
 import { useContext } from 'react';
-import { StateContext } from './StateContext';
+import { StateContext } from '../StateContext';
+
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import Error from '../../common/Error';
+import Error from '../../../common/Error';
 
 const DeleteStateConfirmationModal = ({
   showDeleteConfirmationModal,
@@ -26,7 +27,7 @@ const DeleteStateConfirmationModal = ({
 
   return (
     <Modal show={showDeleteConfirmationModal} onHide={handleClose} centered>
-      <Modal.Header closeButton className="px-4">
+      <Modal.Header className="px-4" closeButton>
         <Modal.Title>Delete state</Modal.Title>
       </Modal.Header>
 

@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { StateContext } from './StateContext';
+
 import StateList from './StateList';
 import Loading from '../../common/Loading';
 import Error from '../../common/Error';
@@ -14,25 +15,17 @@ const StateStatusResolver = () => {
   if (status === 'loading...' && !data) {
     return (
       <>
-        <div
-          style={{
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '90vh',
-          }}
-        >
-          <div style={{ position: 'absolute' }}>
-            <Loading size={7} spin={4} />
+        <div className="position-relative d-flex justify-content-center align-items-center vh-100">
+          <div className="position-absolute">
+            <Loading size={8} spin={6} />
           </div>
 
-          <div style={{ position: 'absolute' }}>
-            <Loading size={6} spin={2} />
+          <div className="position-absolute">
+            <Loading size={6} spin={4} />
           </div>
 
-          <div style={{ position: 'absolute' }}>
-            <Loading size={9} spin={6} />
+          <div className="position-absolute">
+            <Loading size={4} spin={2} />
           </div>
         </div>
       </>

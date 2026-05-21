@@ -1,11 +1,12 @@
 import { useContext, useState, useEffect } from 'react';
-import { PrintJob3DContext } from './PrintJob3DContext';
+import { PrintJob3DContext } from '../PrintJob3DContext';
+
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import Error from '../../common/Error';
+import Error from '../../../common/Error';
 
 const CreatePrintJob3DModal = ({
   showCreateModal,
@@ -64,7 +65,7 @@ const CreatePrintJob3DModal = ({
   return (
     <Modal show={showCreateModal} onHide={handleClose} centered size="lg">
       <Form onSubmit={onSubmit}>
-        <Modal.Header closeButton className="px-4">
+        <Modal.Header className="px-4" closeButton>
           <Modal.Title>Create 3D printing job</Modal.Title>
         </Modal.Header>
 
@@ -94,7 +95,9 @@ const CreatePrintJob3DModal = ({
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label className="fw-semibold">Total Price *</Form.Label>
+                <Form.Label className="fw-semibold">
+                  Total Price (€) *
+                </Form.Label>
 
                 <Form.Control
                   type="number"
@@ -148,15 +151,14 @@ const CreatePrintJob3DModal = ({
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3">
+              <Form.Group>
                 <Form.Label className="fw-semibold">Note</Form.Label>
 
                 <Form.Control
                   as="textarea"
-                  rows={6}
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
-                  style={{ height: '7.75rem' }}
+                  style={{ height: '7.7rem' }}
                 />
               </Form.Group>
             </Col>

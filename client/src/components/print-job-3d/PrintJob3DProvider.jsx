@@ -21,6 +21,7 @@ const PrintJob3DProvider = ({ children }) => {
 
         const data = await res.json();
         setData(data);
+
         setStatus('success');
       } catch (error) {
         setError(error.message);
@@ -38,9 +39,7 @@ const PrintJob3DProvider = ({ children }) => {
     try {
       const res = await fetch('/print-job-3d/create', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
@@ -53,16 +52,16 @@ const PrintJob3DProvider = ({ children }) => {
       setData((currentData) => {
         if (!currentData) return currentData;
 
-        const deliveryDate = data.deliveryDue;
+        const deliveryDue = data.deliveryDue;
 
         const currentGroup =
-          currentData.printJob3DGroupedAndSortedList[deliveryDate] || [];
+          currentData.printJob3DGroupedAndSortedList[deliveryDue] || [];
 
         return {
           ...currentData,
           printJob3DGroupedAndSortedList: {
             ...currentData.printJob3DGroupedAndSortedList,
-            [deliveryDate]: [...currentGroup, data],
+            [deliveryDue]: [...currentGroup, data],
           },
         };
       });
