@@ -1,6 +1,9 @@
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import { Icon } from '@mdi/react';
+import { mdiEye, mdiPencil, mdiDelete } from '@mdi/js';
 
 const PrintJob3DItem = ({ data, state }) => {
   return (
@@ -48,6 +51,31 @@ const PrintJob3DItem = ({ data, state }) => {
                   <span>{state.name}</span>
                 </Card.Body>
               </Card>
+            </Col>
+
+            <Col>
+              <Button
+                variant="secondary"
+                className="me-2 pt-1 mt-3 ms-5"
+                style={{ padding: '0.4rem 0.2rem' }}
+              >
+                <Icon path={mdiEye} size={0.9} />
+              </Button>
+
+              <Button
+                className="me-2 pt-1 mt-3"
+                style={{ padding: '0.4rem 0.2rem' }}
+              >
+                <Icon path={mdiPencil} size={0.9} />
+              </Button>
+
+              <Button
+                variant="danger"
+                className="pt-1 mt-3"
+                style={{ padding: '0.4rem 0.2rem' }}
+              >
+                <Icon path={mdiDelete} size={0.9} />
+              </Button>
             </Col>
           </Row>
         </Card.Body>

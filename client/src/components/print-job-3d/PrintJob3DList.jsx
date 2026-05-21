@@ -1,13 +1,15 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { PrintJob3DContext } from './PrintJob3DContext';
 import PrintJob3DItem from './PrintJob3DItem';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import CreatePrintJob3DModal from './CreatePrintJob3DModal';
 import { Icon } from '@mdi/react';
 import { mdiInformation } from '@mdi/js';
 
 const PrintJob3DList = () => {
   const { data } = useContext(PrintJob3DContext);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const groupedAndSortedList = data?.printJob3DGroupedAndSortedList || {};
 
@@ -16,7 +18,11 @@ const PrintJob3DList = () => {
       <div className="mb-3" style={{ display: 'flex', alignItems: 'center' }}>
         <h2 className="me-auto">List of 3D printing jobs</h2>
 
-        <Button variant="success" className="fw-semibold">
+        <Button
+          variant="success"
+          onClick={() => setShowCreateModal(true)}
+          className="fw-semibold"
+        >
           Create
         </Button>
       </div>
@@ -24,8 +30,9 @@ const PrintJob3DList = () => {
       <hr className="my-1 mb-4"></hr>
 
       {Object.keys(groupedAndSortedList).length > 0 ? (
-        Object.entries(groupedAndSortedList).map(
-          ([deliveryDate, printJobs3D]) => (
+        Object.entries(groupedAndSortedList)
+          .sort(([a], [b]) => new Date(a) - new Date(b))
+          .map(([deliveryDate, printJobs3D]) => (
             <span key={deliveryDate}>
               <h5 className="mb-3">{deliveryDate}</h5>
 
@@ -37,14 +44,19 @@ const PrintJob3DList = () => {
                 />
               ))}
             </span>
-          )
-        )
+          ))
       ) : (
         <Alert variant="info">
           <Icon path={mdiInformation} size={1.3} className="text-info me-2" />
           No 3D printing job has been created yet. You must create one first.
         </Alert>
       )}
+
+      <CreatePrintJob3DModal
+        showCreateModal={showCreateModal}
+        setShowCreateModal={setShowCreateModal}
+        states={Object.values(data.stateMap)}
+      />
     </>
   );
 };

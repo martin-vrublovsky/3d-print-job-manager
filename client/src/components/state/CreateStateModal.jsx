@@ -31,8 +31,6 @@ const CreateStateModal = ({ showCreateModal, setShowCreateModal }) => {
     const isCreated = await handleMap.handleCreate(name, payloadColorCode);
 
     if (isCreated) {
-      setName('');
-      setColorCode('');
       handleClose();
     }
   };
