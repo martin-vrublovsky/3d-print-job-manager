@@ -2,12 +2,9 @@ import { useContext, useState } from 'react';
 import { PrintJob3DContext } from './PrintJob3DContext';
 
 import PrintJob3DItem from './PrintJob3DItem';
-import Alert from 'react-bootstrap/Alert';
+import InfoAlert from '../../common/InfoAlert';
 import Button from 'react-bootstrap/Button';
 import CreatePrintJob3DModal from './modals/CreatePrintJob3DModal';
-
-import { Icon } from '@mdi/react';
-import { mdiInformation } from '@mdi/js';
 
 const PrintJob3DList = () => {
   const { data } = useContext(PrintJob3DContext);
@@ -48,10 +45,11 @@ const PrintJob3DList = () => {
             </span>
           ))
       ) : (
-        <Alert variant="info">
-          <Icon path={mdiInformation} size={1.3} className="text-info me-2" />
-          No 3D printing job has been created yet. You must create one first.
-        </Alert>
+        <InfoAlert
+          message={
+            'No 3D printing job has been created yet. You must create one first.'
+          }
+        ></InfoAlert>
       )}
 
       <CreatePrintJob3DModal
