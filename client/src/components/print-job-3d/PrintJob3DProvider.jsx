@@ -107,6 +107,36 @@ const PrintJob3DProvider = ({ children }) => {
     }
   };
 
+  const handleDelete = async (id) => {
+    setStatus(`deleting ${id}`);
+    setError(null);
+
+    try {
+      const res = await fetch('/print-job-3d/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        throw new Error(data?.details?.[0]?.message || data?.message);
+      }
+
+      await fetchPrintJobs3D();
+
+      setStatus('success');
+
+      return true;
+    } catch (error) {
+      setError(error.message);
+      setStatus('error');
+
+      return false;
+    }
+  };
+
   return (
     <>
       <PrintJob3DContext.Provider
@@ -115,7 +145,7 @@ const PrintJob3DProvider = ({ children }) => {
           status,
           error,
           setError,
-          handleMap: { handleCreate, handleUpdate },
+          handleMap: { handleCreate, handleUpdate, handleDelete },
         }}
       >
         {children}

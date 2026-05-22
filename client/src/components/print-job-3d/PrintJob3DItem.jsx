@@ -5,12 +5,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import UpdatePrintJob3DModal from './modals/UpdatePrintJob3DModal';
+import DeletePrintJob3DConfirmationModal from './modals/DeletePrintJob3DConfirmationModal';
 
 import { Icon } from '@mdi/react';
 import { mdiEye, mdiPencil, mdiDelete } from '@mdi/js';
 
 const PrintJob3DItem = ({ data, state, states }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
+    useState(false);
 
   return (
     <>
@@ -77,6 +80,7 @@ const PrintJob3DItem = ({ data, state, states }) => {
 
               <Button
                 variant="danger"
+                onClick={() => setShowDeleteConfirmationModal(true)}
                 className="pt-1 mt-3"
                 style={{ padding: '0.4rem 0.2rem' }}
               >
@@ -92,6 +96,12 @@ const PrintJob3DItem = ({ data, state, states }) => {
         setShowUpdateModal={setShowUpdateModal}
         printJob3DData={data}
         states={states}
+      />
+
+      <DeletePrintJob3DConfirmationModal
+        showDeleteConfirmationModal={showDeleteConfirmationModal}
+        setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
+        printJob3DData={data}
       />
     </>
   );
