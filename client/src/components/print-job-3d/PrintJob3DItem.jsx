@@ -1,12 +1,17 @@
+import { useState } from 'react';
+
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import UpdatePrintJob3DModal from './modals/UpdatePrintJob3DModal';
 
 import { Icon } from '@mdi/react';
 import { mdiEye, mdiPencil, mdiDelete } from '@mdi/js';
 
-const PrintJob3DItem = ({ data, state }) => {
+const PrintJob3DItem = ({ data, state, states }) => {
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+
   return (
     <>
       <Card className="mb-3">
@@ -63,6 +68,7 @@ const PrintJob3DItem = ({ data, state }) => {
               </Button>
 
               <Button
+                onClick={() => setShowUpdateModal(true)}
                 className="pt-1 mt-3 me-2"
                 style={{ padding: '0.4rem 0.2rem' }}
               >
@@ -80,6 +86,13 @@ const PrintJob3DItem = ({ data, state }) => {
           </Row>
         </Card.Body>
       </Card>
+
+      <UpdatePrintJob3DModal
+        showUpdateModal={showUpdateModal}
+        setShowUpdateModal={setShowUpdateModal}
+        printJob3DData={data}
+        states={states}
+      />
     </>
   );
 };

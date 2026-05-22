@@ -8,27 +8,27 @@ const StateProvider = ({ children }) => {
 
   console.log(status);
 
-  useEffect(() => {
-    const fetchStates = async () => {
-      setStatus('loading...');
+  const fetchStates = async () => {
+    setStatus('loading...');
 
-      try {
-        const res = await fetch('/state/list');
+    try {
+      const res = await fetch('/state/list');
 
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-
-        const data = await res.json();
-        setData(data);
-
-        setStatus('success');
-      } catch (error) {
-        setError(error.message);
-        setStatus('error');
+      if (!res.ok) {
+        throw new Error(res.statusText);
       }
-    };
 
+      const data = await res.json();
+      setData(data);
+
+      setStatus('success');
+    } catch (error) {
+      setError(error.message);
+      setStatus('error');
+    }
+  };
+
+  useEffect(() => {
     fetchStates();
   }, []);
 

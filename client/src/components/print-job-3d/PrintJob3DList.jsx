@@ -40,6 +40,7 @@ const PrintJob3DList = () => {
                   key={printJob3D.id}
                   data={printJob3D}
                   state={data.stateMap[printJob3D.stateId]}
+                  states={Object.values(data.stateMap)}
                 />
               ))}
             </span>

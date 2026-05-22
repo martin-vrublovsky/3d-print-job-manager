@@ -8,27 +8,27 @@ const PrintJob3DProvider = ({ children }) => {
 
   console.log(status);
 
-  useEffect(() => {
-    const fetchPrintJobs3D = async () => {
-      setStatus('loading...');
+  const fetchPrintJobs3D = async () => {
+    setStatus('loading...');
 
-      try {
-        const res = await fetch('/print-job-3d/list');
+    try {
+      const res = await fetch('/print-job-3d/list');
 
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-
-        const data = await res.json();
-        setData(data);
-
-        setStatus('success');
-      } catch (error) {
-        setError(error.message);
-        setStatus('error');
+      if (!res.ok) {
+        throw new Error(res.statusText);
       }
-    };
 
+      const data = await res.json();
+      setData(data);
+
+      setStatus('success');
+    } catch (error) {
+      setError(error.message);
+      setStatus('error');
+    }
+  };
+
+  useEffect(() => {
     fetchPrintJobs3D();
   }, []);
 
@@ -77,10 +77,46 @@ const PrintJob3DProvider = ({ children }) => {
     }
   };
 
+  const handleUpdate = async (id, payload) => {
+    setStatus(`updating ${id}`);
+    setError(null);
+
+    try {
+      const res = await fetch('/print-job-3d/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, ...payload }),
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        throw new Error(data?.details?.[0]?.message || data?.message);
+      }
+
+      await fetchPrintJobs3D();
+
+      setStatus('success');
+
+      return true;
+    } catch (error) {
+      setError(error.message);
+      setStatus('error');
+
+      return false;
+    }
+  };
+
   return (
     <>
       <PrintJob3DContext.Provider
-        value={{ data, status, error, setError, handleMap: { handleCreate } }}
+        value={{
+          data,
+          status,
+          error,
+          setError,
+          handleMap: { handleCreate, handleUpdate },
+        }}
       >
         {children}
       </PrintJob3DContext.Provider>
