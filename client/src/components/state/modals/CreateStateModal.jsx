@@ -27,9 +27,7 @@ const CreateStateModal = ({ showCreateModal, setShowCreateModal }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const colorCodePayload = colorCode.trim() === '' ? undefined : colorCode;
-
-    const isCreated = await handleMap.handleCreate(name, colorCodePayload);
+    const isCreated = await handleMap.handleCreate(name, colorCode);
 
     if (isCreated) {
       handleClose();
