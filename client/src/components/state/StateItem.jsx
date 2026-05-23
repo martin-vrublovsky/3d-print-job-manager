@@ -16,7 +16,10 @@ const StateItem = ({ data }) => {
   return (
     <>
       <div className="d-flex align-items-center mb-3">
-        <Card className="me-4" style={{ backgroundColor: data.colorCode }}>
+        <Card
+          className="me-auto text-center"
+          style={{ width: '8rem', backgroundColor: data.colorCode }}
+        >
           <Card.Body style={{ padding: '0.35rem 0.7rem' }}>
             <span>{data.name}</span>
           </Card.Body>

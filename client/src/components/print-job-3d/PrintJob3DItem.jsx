@@ -45,7 +45,7 @@ const PrintJob3DItem = ({ data, state, states }) => {
               <Card
                 className="text-center rounded-2"
                 style={{
-                  width: '8.5rem',
+                  width: '8rem',
                   marginTop: '-0.4rem',
                   backgroundColor: state.colorCode,
                   // @FIXME border: `2px solid ${state.colorCode}`,
