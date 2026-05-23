@@ -36,7 +36,7 @@ const DeleteStateConfirmationModal = ({
 
         <p className="mb-0">
           Are you sure you want to delete state{' '}
-          <strong>{stateData?.name}</strong>?
+          <strong>{stateData.name}</strong>?
         </p>
       </Modal.Body>
 

@@ -36,7 +36,7 @@ const DeletePrintJob3DConfirmationModal = ({
 
         <p className="mb-0">
           Are you sure you want to delete 3D printing job{' '}
-          <strong>{printJob3DData?.name}</strong>?
+          <strong>{printJob3DData.name}</strong>?
         </p>
       </Modal.Body>
 
