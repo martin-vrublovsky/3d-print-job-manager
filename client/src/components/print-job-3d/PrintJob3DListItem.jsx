@@ -11,7 +11,7 @@ import DeletePrintJob3DConfirmationModal from './modals/DeletePrintJob3DConfirma
 import { Icon } from '@mdi/react';
 import { mdiEye, mdiPencil, mdiDelete } from '@mdi/js';
 
-const PrintJob3DItem = ({ data, state, states }) => {
+const PrintJob3DListItem = ({ data, state, states }) => {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
@@ -115,4 +115,4 @@ const PrintJob3DItem = ({ data, state, states }) => {
   );
 };
 
-export default PrintJob3DItem;
+export default PrintJob3DListItem;

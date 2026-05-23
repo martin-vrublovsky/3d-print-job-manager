@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { StateContext } from './StateContext';
 
-import StateItem from './StateItem';
+import StateListItem from './StateListItem';
 import InfoAlert from '../../common/InfoAlert';
 import Button from 'react-bootstrap/Button';
 import CreateStateModal from './modals/CreateStateModal';
@@ -27,7 +27,9 @@ const StateList = () => {
       <hr className="my-1 mb-4"></hr>
 
       {data?.stateList?.length > 0 ? (
-        data.stateList.map((state) => <StateItem key={state.id} data={state} />)
+        data.stateList.map((state) => (
+          <StateListItem key={state.id} data={state} />
+        ))
       ) : (
         <InfoAlert
           message={'No state has been created yet. You must create one first.'}

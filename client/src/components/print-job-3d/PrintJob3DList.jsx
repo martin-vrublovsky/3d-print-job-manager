@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { PrintJob3DContext } from './PrintJob3DContext';
 
-import PrintJob3DItem from './PrintJob3DItem';
+import PrintJob3DListItem from './PrintJob3DListItem';
 import InfoAlert from '../../common/InfoAlert';
 import Button from 'react-bootstrap/Button';
 import CreatePrintJob3DModal from './modals/CreatePrintJob3DModal';
@@ -36,7 +36,7 @@ const PrintJob3DList = () => {
               <h5 className="mb-3">{deliveryDate}</h5>
 
               {printJobs3D.map((printJob3D) => (
-                <PrintJob3DItem
+                <PrintJob3DListItem
                   key={printJob3D.id}
                   data={printJob3D}
                   state={data.stateMap[printJob3D.stateId]}

@@ -8,7 +8,7 @@ import DeleteStateConfirmationModal from './modals/DeleteStateConfirmationModal'
 import { Icon } from '@mdi/react';
 import { mdiPencil, mdiDelete } from '@mdi/js';
 
-const StateItem = ({ data }) => {
+const StateListItem = ({ data }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
@@ -58,4 +58,4 @@ const StateItem = ({ data }) => {
   );
 };
 
-export default StateItem;
+export default StateListItem;
