@@ -3,7 +3,7 @@ import addFormats from 'ajv-formats';
 import printJob3DDao from '../../dao/print-job-3d-dao.js';
 import stateDao from '../../dao/state-dao.js';
 
-const ajv = new Ajv();
+const ajv = new Ajv({ multipleOfPrecision: 2 });
 addFormats(ajv);
 
 const printJob3DSchema = {

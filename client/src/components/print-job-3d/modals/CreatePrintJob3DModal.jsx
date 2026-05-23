@@ -48,7 +48,7 @@ const CreatePrintJob3DModal = ({
     const payload = {
       name,
       customerName,
-      totalPrice: Math.round(Number(totalPrice) * 100) / 100,
+      totalPrice: Number(totalPrice),
       deliveryDue,
       stateId,
       filamentCodeName,
