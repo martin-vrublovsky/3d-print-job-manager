@@ -132,7 +132,11 @@ const CreatePrintJob3DModal = ({
                   <option value="">Select state</option>
 
                   {states?.map((state) => (
-                    <option key={state.id} value={state.id}>
+                    <option
+                      key={state.id}
+                      value={state.id}
+                      style={{ backgroundColor: state.colorCode }}
+                    >
                       {state.name}
                     </option>
                   ))}
