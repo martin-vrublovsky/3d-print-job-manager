@@ -8,6 +8,18 @@ const StateProvider = ({ children }) => {
 
   console.log(status);
 
+  const getValidationMessage = (data) => {
+    const keyPath = data?.details?.[0]?.instancePath;
+
+    const keyName = keyPath
+      ?.replace('/', '')
+      ?.replace(/^\w/, (c) => c.toUpperCase());
+
+    return data?.details?.[0]
+      ? `${keyName} ${data.details[0].message}`
+      : data?.message;
+  };
+
   const fetchStates = async () => {
     setStatus('loading...');
 
@@ -46,7 +58,7 @@ const StateProvider = ({ children }) => {
       const data = await res.json().catch(() => null);
 
       if (!res.ok) {
-        throw new Error(data?.details?.[0]?.message || data?.message);
+        throw new Error(getValidationMessage(data));
       }
 
       setData((currentData) => {
@@ -83,7 +95,7 @@ const StateProvider = ({ children }) => {
       const data = await res.json().catch(() => null);
 
       if (!res.ok) {
-        throw new Error(data?.details?.[0]?.message || data?.message);
+        throw new Error(getValidationMessage(data));
       }
 
       setData((currentData) => {
@@ -122,7 +134,7 @@ const StateProvider = ({ children }) => {
       const data = await res.json().catch(() => null);
 
       if (!res.ok) {
-        throw new Error(data?.details?.[0]?.message || data?.message);
+        throw new Error(getValidationMessage(data));
       }
 
       setData((currentData) => ({
