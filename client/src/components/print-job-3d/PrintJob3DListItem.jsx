@@ -50,7 +50,6 @@ const PrintJob3DListItem = ({ data, state, states }) => {
                   width: '8rem',
                   marginTop: '-0.4rem',
                   backgroundColor: state.colorCode,
-                  // @FIXME border: `2px solid ${state.colorCode}`,
                 }}
               >
                 <Card.Body
@@ -93,6 +92,7 @@ const PrintJob3DListItem = ({ data, state, states }) => {
           </Row>
         </Card.Body>
       </Card>
+
       <PrintJob3DDetailModal
         showDetailModal={showDetailModal}
         setShowDetailModal={setShowDetailModal}
