@@ -1,0 +1,11 @@
+Created (Vytvorená) - #fbe1df
+
+Printing (Tlačí sa) - #fafafa
+
+Printed (Vytlačená) - #f4f4f4
+
+Ready to ship (Pripravená na odoslanie) - #e5f5fe
+
+Shipped (Odoslaná) - #fdf9de
+
+Finished (Dokončená) - #eff7e6
